@@ -1,0 +1,20 @@
+{
+  "name": "curso-modulo-1",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/rochyaltamirano/cypress-2026#readme",
+  "bugs": {
+    "url": "https://github.com/rochyaltamirano/cypress-2026/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rochyaltamirano/cypress-2026.git"
+  },
+  "license": "ISC",
+  "author": "Rocio Altamirano",
+  "type": "commonjs",
+  "main": "cypress.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
