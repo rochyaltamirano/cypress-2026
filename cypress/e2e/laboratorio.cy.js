@@ -21,4 +21,11 @@ describe ('Example to-do app', ()=>{
     it('Encontrar elementos por texto', () => {
         cy.contains('Acceder').click();
     });
+
+// [atributo="valor"]
+    it.only('Encontrar elementos por atributo', () => {
+        cy.visit('https://www.laboratoriodetesting.com/products/chaqueta-deportiva-para-correr');
+        cy.get('[data-at="increment-quantity"]').click();
+        cy.get('[data-at="add-to-cart"]').click();
+    });
 })
