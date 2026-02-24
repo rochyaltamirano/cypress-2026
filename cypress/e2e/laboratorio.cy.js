@@ -23,9 +23,16 @@ describe ('Example to-do app', ()=>{
     });
 
 // [atributo="valor"]
-    it.only('Encontrar elementos por atributo', () => {
+    it('Encontrar elementos por atributo', () => {
         cy.visit('https://www.laboratoriodetesting.com/products/chaqueta-deportiva-para-correr');
         cy.get('[data-at="increment-quantity"]').click();
         cy.get('[data-at="add-to-cart"]').click();
+    });
+
+    it.only('Encontrar elementos hijos', () => {
+        //cy.get('[data-at="header"]').find('ul > li').eq(0).click();
+        cy.get('[data-at="header"]').find('ul > li').eq(1).click();
+        //cy.get('[data-at="header"]').find('ul > li').eq(2).click();
+
     });
 })
