@@ -6,10 +6,10 @@ describe('test description', () => {
         cy.visit('https://www.laboratoriodetesting.com/form-practice');                      
     });
 
-    it('manejo de dropdown', () => {
+    it('manejo de radiobuttons', () => {
 
         cy.get('#sch_Mañana').click();
-        
+
         cy.get('#sch_Mañana').should('be.checked');
         cy.get('#sch_Tarde').should('not.be.checked');
         
