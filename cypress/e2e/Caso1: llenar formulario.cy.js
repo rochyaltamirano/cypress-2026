@@ -7,7 +7,7 @@ describe('test description', () => {
     });
 
     it('Llenar formulario y enviar ', () => {
-        cy.get('[data-at="practice-submit"]').should('be.disabled');
+        cy.get('[data-at="practice-submit"]').should('be.disabled').as('botonEnviar');
 
         cy.get('[data-at="practice-name"]').type('Juan', {force:true});
         cy.get(':nth-child(2) > .bg-gray-50').type('123');
@@ -18,11 +18,11 @@ describe('test description', () => {
 
         cy.get('[data-at="practice-interests-devops"]').check();
 
-        cy.get('[data-at="practice-submit"]').should('be.disabled');
+        cy.get('@botonEnviar').should('be.disabled');
         cy.get('[name="dateOfBirth"]').type('1991-09-14');
 
-        cy.get('[data-at="practice-submit"]').should('be.enabled');
-        cy.get('[data-at="practice-submit"]').click({force: true});
+        cy.get('@botonEnviar').should('be.enabled');
+        cy.get('@botonEnviar').click({force: true});
 
         cy.get('.swal2-confirm').click();
 
