@@ -7,7 +7,16 @@ module.exports = {
     },
     retries: {
       openMode: 2,
-      runMode: 1 
+      runMode: 2 
+    },
+    baseUrl: 'https://www.laboratoriodetesting.com',
+    defaultCommandTimeout: 10000,
+    pageLoadTimeout: 80000,
+    viewportWidth: 1280,
+    viewportHeight: 720,
+    env: {
+      username: 'usuarioPrueba',
+      api: 'api123'
     }
   },
 };
