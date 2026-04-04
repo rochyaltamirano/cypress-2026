@@ -23,3 +23,18 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('addToCart', () => {
+    cy.get('[data-at="product-card"]').eq(3)
+        .find('.block.font-sans').eq(0).invoke('text').
+            then((description) => {
+                cy.wrap(description).as('productDescription');
+            })
+        
+    cy.get('[data-at="product-card"]').eq(3)
+        .find('.block.font-sans').eq(1).invoke('text').
+            then((price) => {
+                cy.wrap(price).as('productPrice');
+            })
+    //añadir al carrito
+    cy.get('.align-middle.select-none').eq(3).click();
+})
