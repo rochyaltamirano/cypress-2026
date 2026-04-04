@@ -7,8 +7,8 @@ module.exports = {
       // implement node event listeners here
     },
     retries: {
-      openMode: 2,
-      runMode: 2 
+      openMode: 1,
+      runMode: 1 
     },
     baseUrl: 'https://www.laboratoriodetesting.com',
     defaultCommandTimeout: 10000,
