@@ -1,0 +1,16 @@
+{
+    "nombre": "Maria",
+    "apellido": "Potter",
+    "email": "maria.potter@test.com",
+    "direccion": "Av Siempre Viva",
+    "pais": "Francia",
+    "num_tarjeta": "4301822375925071",
+    "fecha_exp": "2029-09",
+    "cvv": "668",
+    "num_tarjeta_invalida": "5329127549652373",
+    "fecha_exp_invalida": "2028-05",
+    "cvv_invalida": "495",
+    "num_tarjeta_nf": "4577009248375940",
+    "fecha_exp_nf": "2027-05",
+    "cvv_nf": "254"
+}

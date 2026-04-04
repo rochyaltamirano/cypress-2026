@@ -24,8 +24,6 @@ describe('Flujos de añadir a carrito de compras', () => {
             expect(priceCart.trim()).to.eq(price.trim());
         });
     })
-
-        
-    
+         
    });
 })
