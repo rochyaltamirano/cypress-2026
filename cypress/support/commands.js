@@ -38,3 +38,25 @@ Cypress.Commands.add('addToCart', () => {
     //añadir al carrito
     cy.get('.align-middle.select-none').eq(3).click();
 })
+
+Cypress.Commands.add('validateSavedText', (alias, selector) => {
+    cy.get(alias).then((savedText) => {
+        cy.get(selector).invoke('text').then((currentText) => {
+            expect(currentText.trim()).to.eq(savedText.trim())
+        });
+    })
+})
+
+Cypress.Commands.add('validateDate', (selector) => {
+    cy.get(selector).first().invoke('text').then((dateToday) => {
+        const date = new Date();
+        const day = String(date.getDate()).padStart(2,'0');
+        const months = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+        const month = months[date.getMonth()];
+        const year = String(date.getFullYear()).slice(-2);
+        const expectedDate = `${day} ${month}, ${year}`;
+       
+        expect(dateToday.trim().toLowerCase()).to.equal(expectedDate);
+
+    });
+})

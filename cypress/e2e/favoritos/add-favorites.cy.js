@@ -47,13 +47,6 @@ describe('Favoritos', () => {
             cy.get('[data-at="favorite-card"]').then(($listaActualizada) => {
                 expect($listaActualizada).to.have.length(favoritosLista - 1)
             });
-        });
-
-     
-
-
-
-
-    
+        });    
    });
 })
