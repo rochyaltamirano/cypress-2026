@@ -60,3 +60,14 @@ Cypress.Commands.add('validateDate', (selector) => {
 
     });
 })
+
+Cypress.Commands.add('loginByAPI', (email, password) => {
+    cy.request({
+        method: 'POST',
+        url: 'https://api.laboratoriodetesting.com/api/v1/auth/login',
+        body: {
+            email: email,
+            password: password
+        }
+});
+})
