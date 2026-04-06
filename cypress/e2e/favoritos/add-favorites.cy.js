@@ -1,11 +1,13 @@
+import * as FavoritePage from '../../support/selectores/favorites-page'
+
 describe('Favoritos', () => {
 
     beforeEach(() => {
         cy.visit('auth/login');
         cy.fixture('login').then((usuario) => {                   
-                cy.get('[name="email"]').type(usuario.email);
-                cy.get('[name="password"]').type(usuario.password);
-                cy.get('[data-at="submit-login"]').click();
+                cy.get(FavoritePage.EMAIL).type(usuario.email);
+                cy.get(FavoritePage.PASSWORD).type(usuario.password);
+                cy.get(FavoritePage.LOGINBTN).click();
         })
         cy.url().should('not.include', 'auth/login');
    });
@@ -13,19 +15,19 @@ describe('Favoritos', () => {
    it('Agregar productos a favoritos', () => {     
         cy.visit('whishlist');
      
-        cy.get('[data-at="favorite-card"]').then(($item) =>{
+        cy.get(FavoritePage.FAVORITE_CARD).then(($item) =>{
             cy.wrap($item.length).as('favorito');
         });
 
         cy.visit('');
         
-        cy.get('.rounded-sm.aspect-square').first().click();
-        cy.get('[data-at="add-to-favorites"]').click();
+        cy.get(FavoritePage.PRODUCT_CARD).first().click();
+        cy.get(FavoritePage.ADD_TO_FAVORITES).click();
         cy.visit('whishlist');
 
         cy.get('@favorito').then((favoritosLista) =>{
         
-            cy.get('[data-at="favorite-card"]').then(($listaActualizada) => {
+            cy.get(FavoritePage.FAVORITE_CARD).then(($listaActualizada) => {
                 expect($listaActualizada).to.have.length(favoritosLista + 1)
             });
         });
@@ -34,17 +36,17 @@ describe('Favoritos', () => {
    it('Quitar un producto de favoritos', () => {
         cy.visit('whishlist');
 
-        cy.get('[data-at="favorite-card"]').then(($item) =>{
+        cy.get(FavoritePage.FAVORITE_CARD).then(($item) =>{
             cy.wrap($item.length).as('favorito');
         });
 
-        cy.get('[data-at="favorite-card"]').last().click();
-        cy.get('[data-at="remove-from-favorites"]').should('be.visible').click();
-        cy.get('[data-at="add-to-favorites"]').should('be.visible');
+        cy.get(FavoritePage.FAVORITE_CARD).last().click();
+        cy.get(FavoritePage.REMOVE_FROM_FAVORITES).should('be.visible').click();
+        cy.get(FavoritePage.ADD_TO_FAVORITES).should('be.visible');
         cy.visit('whishlist');
 
         cy.get('@favorito').then((favoritosLista) =>{
-            cy.get('[data-at="favorite-card"]').then(($listaActualizada) => {
+            cy.get(FavoritePage.FAVORITE_CARD).then(($listaActualizada) => {
                 expect($listaActualizada).to.have.length(favoritosLista - 1)
             });
         });    
