@@ -1,3 +1,4 @@
+import * as RegistroPage from '../../support/selectores/registro-page'
 const { faker } = require('@faker-js/faker');
 describe('Flujo de registro', () => {
    beforeEach(() => {
@@ -10,12 +11,12 @@ describe('Flujo de registro', () => {
             const sufijoRandom = Math.floor(100 + Math.random() * 900) 
             const email = `${usuario.emailPre}${sufijoRandom}@${usuario.dominio}`
                    
-            cy.get('[name="email"]').type(email);
-            cy.get('[name="name"]').type(usuario.nombre);
-            cy.get('[name="password"]').first().type(usuario.password);
-            cy.get('[name="repeatPassword"]').type(usuario.password);
+            cy.get(RegistroPage.EMAIL).type(email);
+            cy.get(RegistroPage.NAME).type(usuario.nombre);
+            cy.get(RegistroPage.PASSWORD).first().type(usuario.password);
+            cy.get(RegistroPage.PASSWORD_REPEAT).type(usuario.password);
         })
-        cy.get('[data-at="submit-signup"').click();
+        cy.get(RegistroPage.CREATE_USER_BTN).click();
 
         cy.get('#swal2-title').should('have.text','Operación Exitosa');
 
@@ -29,12 +30,12 @@ describe('Flujo de registro', () => {
         //registrar al usuario
         const password =  faker.internet.password();
 
-        cy.get('[name="email"]').type(faker.internet.email());
-        cy.get('[name="name"]').type(faker.person.fullName());
-        cy.get('[name="password"]').first().type(password);
-        cy.get('[name="repeatPassword"]').type(password);
+        cy.get(RegistroPage.EMAIL).type(faker.internet.email());
+        cy.get(RegistroPage.NAME).type(faker.person.fullName());
+        cy.get(RegistroPage.PASSWORD).first().type(password);
+        cy.get(RegistroPage.PASSWORD_REPEAT).type(password);
         
-        cy.get('[data-at="submit-signup"').click();
+        cy.get(RegistroPage.CREATE_USER_BTN).click();
 
         cy.get('#swal2-title').should('have.text','Operación Exitosa');
 
@@ -47,10 +48,10 @@ describe('Flujo de registro', () => {
    it('Verificar politíca de longitud del password', () => {
            const password = faker.internet.password({length: 7}); //el parámetro length especifica la longitud del password
    
-           cy.get('[name="password"]').type(password);
-           cy.get(':nth-child(4) > .text-red-500').as('mensajeError').should('be.visible')
+           cy.get(RegistroPage.PASSWORD).type(password);
+           cy.get(RegistroPage.MIN_CARACTERES).as('mensajeError').should('be.visible')
                .and('include.text', 'La contraseña debe tener al menos 8 caracteres');
-           cy.get('[name="password"]').type(password + '1'); //adicionamos otro caracter para cumplir la regla
+           cy.get(RegistroPage.PASSWORD).type(password + '1'); //adicionamos otro caracter para cumplir la regla
            cy.wait(5000)
            cy.get('@mensajeError').should('exist').and('not.be.visible'); // el elemento debe existir en el DOM pero no debe ser visible
    });
@@ -59,16 +60,16 @@ describe('Flujo de registro', () => {
         const password = '12345678';
         const passwordIncompleto = password.slice(0, -1); //con la función slice 0, -1 se quita el último caracter, es decir que se obtiene 1234567
 
-        cy.get('[name="password"]').type(password);
-        cy.get('[name="repeatPassword"]').as('confirmarPassword').type(passwordIncompleto);
-        cy.get(':nth-child(5) > .text-red-500').as('mensajeError').should('be.visible')
+        cy.get(RegistroPage.PASSWORD).type(password);
+        cy.get(RegistroPage.PASSWORD_REPEAT).as('confirmarPassword').type(passwordIncompleto);
+        cy.get(RegistroPage.PASSWORD_NOT_EQUALS).as('mensajeError').should('be.visible')
             .and('have.text', 'Las contraseñas no coinciden');
         cy.get('@confirmarPassword').clear().type(password); //con clear, se limpia el campo para ingresar nuevamente el password
         cy.get('@mensajeError').should('exist').and('not.be.visible');
     });
 
     it('Verificar redirección del botón Inicia Sesión', () => {
-        cy.get('.text-md.underline').click();
+        cy.get(RegistroPage.LINK_SESION).click();
         cy.url().should('includes', '/auth/login')
     });
 
