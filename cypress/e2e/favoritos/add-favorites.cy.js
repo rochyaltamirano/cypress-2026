@@ -38,12 +38,12 @@ describe('Favoritos', () => {
             cy.wrap($item.length).as('favorito');
         });
 
-        cy.contains('Chaqueta Deportiva para Correr').click();
-        cy.get('[data-at="remove-from-favorites"]').click();
+        cy.get('[data-at="favorite-card"]').last().click();
+        cy.get('[data-at="remove-from-favorites"]').should('be.visible').click();
+        cy.get('[data-at="add-to-favorites"]').should('be.visible');
         cy.visit('whishlist');
 
         cy.get('@favorito').then((favoritosLista) =>{
-        
             cy.get('[data-at="favorite-card"]').then(($listaActualizada) => {
                 expect($listaActualizada).to.have.length(favoritosLista - 1)
             });
