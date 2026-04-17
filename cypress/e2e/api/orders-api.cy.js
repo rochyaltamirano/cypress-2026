@@ -1,24 +1,25 @@
-const cookie = Cypress.env('cookie')
 describe('Request a los pedidos por API', () => {
    
-    it('Obtener todas ordenes de un usuario', () => {
-        cy.request({
-            method: 'GET',
-            url: 'https://api.laboratoriodetesting.com/api/v1/orders',
-            headers: {
-                Authorization: `Bearer ${cookie}`
-            }
-        }).then((response) => {
-            expect(response.status).to.eq(200);
-            cy.log(JSON.stringify(response.body));
+    it.only('Obtener todas ordenes de un usuario', () => {
+        cy.env(['cookie']).then(({cookie}) => { 
+            cy.request({
+                method: 'GET',
+                url: 'https://api.laboratoriodetesting.com/api/v1/orders',
+                headers: {
+                    Authorization: `Bearer ${cookie}`
+                }
+            }).then((response) => {
+                expect(response.status).to.eq(200);
+                cy.log(JSON.stringify(response.body));
 
-            expect(response.body).to.have.property('orders');
-            response.body.orders.forEach((order) => {
-                expect(order).to.have.property('id')
-                expect(order).to.have.property('userId')
-                expect(order).to.have.property('createdAt')
-                expect(order).to.have.property('products')
-                expect(order).to.have.property('total')
+                expect(response.body).to.have.property('orders');
+                response.body.orders.forEach((order) => {
+                    expect(order).to.have.property('id')
+                    expect(order).to.have.property('userId')
+                    expect(order).to.have.property('createdAt')
+                    expect(order).to.have.property('products')
+                    expect(order).to.have.property('total')
+                })
             })
         })
     });

@@ -2,12 +2,11 @@ const { log } = require("util");
 
 describe('test description', () => {
    beforeEach(() => {
-
-        cy.visit('/');
-        cy.setCookie('__AUTH-TOKEN-APP', Cypress.env('cookie'),
-            { secure: true }
-        ); //en lugar del login por usuario/contraseña
-        cy.visit('/form-practice');                      
+        cy.task('getCookie').then((cookie) => {
+            cy.visit('/');
+            cy.setCookie('__AUTH-TOKEN-APP', cookie, { secure: true });
+            cy.visit('/form-practice');
+        });
     });
 
     it('Llenar formulario y enviar ', () => {

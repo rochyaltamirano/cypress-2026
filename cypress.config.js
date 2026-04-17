@@ -1,14 +1,15 @@
 module.exports = {
-  allowCypressEnv: false,
-
   e2e: {
-    allowCypressEnv: true,
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      on('task', {
+        getCookie() {
+          return config.env.cookie || null;
+        }
+      });
     },
     retries: {
       openMode: 1,
-      runMode: 1 
+      runMode: 1
     },
     baseUrl: 'https://www.laboratoriodetesting.com',
     defaultCommandTimeout: 10000,
